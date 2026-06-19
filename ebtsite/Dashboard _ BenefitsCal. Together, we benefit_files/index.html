@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html style="overflow-y: hidden;"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,minimal-ui"><title>BenefitsCal PreScreening ChatBot</title><link id="lex-web-ui-loader-css" type="text/css" rel="stylesheet" href="lex-web-ui-loader.css"><link id="lex-web-ui-css" type="text/css" rel="stylesheet" href="index_data/lex-web-ui.min.css"><link id="vuetify-css" type="text/css" rel="stylesheet" href="index_data/vuetify.min.css"><link id="roboto-material-icons-css" type="text/css" rel="stylesheet" href="index_data/css.css"><link href="data:image/x-icon;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQEAYAAABPYyMiAAAABmJLR0T///////8JWPfcAAAACXBIWXMAAABIAAAASABGyWs+AAAAF0lEQVRIx2NgGAWjYBSMglEwCkbBSAcACBAAAeaR9cIAAAAASUVORK5CYII=" rel="icon" type="image/x-icon"><link href="index_data/lex-web-ui-loader.min.css" rel="stylesheet"><link rel="stylesheet" href="index_data/custom-chatbot-style.css"><link href="index_data/all.css" rel="stylesheet"><style type="text/css">
+.min-button-content {
+  border-radius: 60px;
+}
+</style><style type="text/css">
+.toolbar-color {
+  background-color: #003da5 !important;
+}
+.nav-buttons {
+  padding: 0;
+  margin-left: 8px !important;
+}
+.nav-button-prev {
+  padding: 0;
+  margin: 0;
+}
+</style><style type="text/css">
+.message-text[data-v-33dcdc58] {
+  -webkit-hyphens: auto;
+      -ms-hyphens: auto;
+          hyphens: auto;
+  overflow-wrap: break-word;
+  padding: 0.8em;
+  white-space: normal;
+  word-break: break-word;
+  width: 100%;
+}
+</style><style type="text/css">
+.sr-only {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(1px, 1px, 1px, 1px) !important;
+  -webkit-clip-path: inset(50%) !important;
+          clip-path: inset(50%) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+</style><style type="text/css">
+.card[data-v-c460a2be] {
+  width: 75vw;
+  position: inherit; /* workaround to card being displayed on top of toolbar shadow */
+  padding-bottom: 0.5em;
+  box-shadow: none !important;
+  background-color: unset !important;
+}
+.card__title[data-v-c460a2be] {
+  padding: 0.5em;
+  padding-top: 0.75em;
+}
+.card__text[data-v-c460a2be] {
+  padding: 0.33em;
+}
+.button-row[data-v-c460a2be] {
+  display: inline-block;
+}
+.card__actions .btn[data-v-c460a2be] {
+  margin: 4px 4px;
+  font-size: 1em;
+  min-width: 44px;
+}
+.card__actions.button-row[data-v-c460a2be] {
+  justify-content: center;
+  padding-bottom: 0.15em;
+}
+.disable-button[data-v-c460a2be] {
+ background-color: #f0f1f4;
+ color: #565c71;
+border: #f0f1f4;
+}
+</style><style type="text/css">
+.smicon[data-v-61d2d687] {
+  font-size: 14px;
+}
+.message[data-v-61d2d687], .message-bubble-column[data-v-61d2d687] {
+  flex: 0 0 auto;
+}
+.message[data-v-61d2d687], .message-bubble-row[data-v-61d2d687] {
+  max-width: 80vw;
+}
+.bot-avatar[data-v-61d2d687] {
+  align-self: center;
+  border-radius: 50%;
+  min-width: calc(2.5em + 1.5vmin);
+  min-height: calc(2.5em + 1.5vmin);
+  align-self: flex-start;
+  margin-right: 4px;
+}
+.message-bubble[data-v-61d2d687] {
+  border-radius: 24px;
+  display: inline-flex;
+  font-size: calc(1em + 0.25vmin);
+  padding: 0 12px;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  align-self: center;
+}
+.focusable[data-v-61d2d687] {
+  box-shadow: 0 0.25px 0.75px rgba(0,0,0,0.12), 0 0.25px 0.5px rgba(0,0,0,0.24);
+  transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+  cursor: default;
+}
+.focusable[data-v-61d2d687]:focus {
+  box-shadow: 0 1.25px 3.75px rgba(0,0,0,0.25), 0 1.25px 2.5px rgba(0,0,0,0.22);
+  outline: none;
+}
+.message-bot .message-bubble[data-v-61d2d687] {
+  background-color: #FFEBEE; /* red-50 from material palette */
+}
+.message-human .message-bubble[data-v-61d2d687] {
+  background-color: #E8EAF6; /* indigo-50 from material palette */
+}
+.message-feedback .message-bubble[data-v-61d2d687] {
+  background-color: #E8EAF6;
+}
+.dialog-state[data-v-61d2d687] {
+  display: inline-flex;
+}
+.icon.dialog-state-ok[data-v-61d2d687] {
+  color: green;
+}
+.icon.dialog-state-fail[data-v-61d2d687] {
+  color: red;
+}
+.play-icon[data-v-61d2d687] {
+  font-size: 2em;
+}
+.feedback-state[data-v-61d2d687] {
+  display: inline-flex;
+  align-self: center;
+}
+.icon.feedback-icons-positive[data-v-61d2d687]{
+  color: grey;
+  /* color: #E8EAF6; */
+  /* color: green; */
+  padding: .125em;
+}
+.positiveClick[data-v-61d2d687]{
+  color: green;
+  padding: .125em;
+}
+.negativeClick[data-v-61d2d687]{
+  color: red;
+  padding: .125em;
+}
+.icon.feedback-icons-positive[data-v-61d2d687]:hover{
+  color:green;
+}
+.icon.feedback-icons-negative[data-v-61d2d687]{
+  /* color: #E8EAF6; */
+  color: grey;
+  padding: .125em;
+}
+.icon.feedback-icons-negative[data-v-61d2d687]:hover{
+  color: red;
+}
+.response-card[data-v-61d2d687] {
+  justify-content: center;
+  width: 85vw;
+}
+.no-point[data-v-61d2d687] {
+  pointer-events: none;
+}
+</style><style type="text/css">
+.message[data-v-e6b4c236], .message-bubble-column[data-v-e6b4c236] {
+  flex: 0 0 auto;
+}
+.message[data-v-e6b4c236], .message-bubble-row[data-v-e6b4c236] {
+  max-width: 80vw;
+}
+.message-bubble[data-v-e6b4c236] {
+  border-radius: 24px;
+  display: inline-flex;
+  font-size: calc(1em + 0.25vmin);
+  padding: 0 12px;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  align-self: center;
+}
+.message-bot .message-bubble[data-v-e6b4c236] {
+  background-color: #FFEBEE; /* red-50 from material palette */
+}
+
+
+</style><style type="text/css">
+.message-list[data-v-7218dcc5] {
+  padding-top: 1rem;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+.message-bot[data-v-7218dcc5] {
+  align-self: flex-start;
+}
+.message-human[data-v-7218dcc5] {
+  align-self: flex-end;
+}
+.message-feedback[data-v-7218dcc5] {
+  align-self: flex-end;
+}
+</style><style type="text/css">
+.recorder-status[data-v-d6017700] {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+.status-text[data-v-d6017700] {
+  align-self: center;
+  display: flex;
+  text-align: center;
+}
+.volume-meter[data-v-d6017700] {
+  display: flex;
+}
+.volume-meter meter[data-v-d6017700] {
+  display: flex;
+  flex: 1;
+  height: 0.75rem;
+}
+.processing-bar[data-v-d6017700] {
+  height: 0.75rem;
+}
+.audio-progress-bar[data-v-d6017700] {
+  height: 0.75rem;
+}
+</style><style type="text/css">
+.input-container {
+  /* make footer same height as dense toolbar */
+  min-height: 48px;
+}
+</style><style type="text/css">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+The Vuetify toolbar height is based on screen width breakpoints
+The toolbar can be 48px, 56px and 64px.
+It is fixed to 48px when using 'dense'
+
+The message list is placed between the toolbar at the top and input
+container on the bottom. Both the toolbar and the input-container
+dynamically change height based on width breakpoints.
+So we duplicate the height and substract it from the total height
+of the message list to make it fit between the toolbar and input container
+
+NOTE: not using var() for different heights due to IE11 compatibility
+*/
+.message-list-container {
+  position: fixed;
+}
+.message-list-container.toolbar-height-sm {
+  top: 48px;
+  height: calc(100% - 140px);
+}
+/* yes, the height is smaller in mid sizes */
+.message-list-container.toolbar-height-md {
+  top: 48px;
+  height: calc(100% - 140px);
+}
+.message-list-container.toolbar-height-lg {
+  top: 48px;
+  height: calc(100% - 140px);
+}
+#lex-web[ui-minimized] {
+  /* make background transparent when running minimized so only
+  the button is shown */
+  background: transparent;
+}
+</style><style type="text/css">.primary{background-color:#1976D2 !important;border-color:#1976D2 !important;}.primary--text{color:#1976D2 !important;}.secondary{background-color:#424242 !important;border-color:#424242 !important;}.secondary--text{color:#424242 !important;}.accent{background-color:#82B1FF !important;border-color:#82B1FF !important;}.accent--text{color:#82B1FF !important;}.error{background-color:#FF5252 !important;border-color:#FF5252 !important;}.error--text{color:#FF5252 !important;}.info{background-color:#2196F3 !important;border-color:#2196F3 !important;}.info--text{color:#2196F3 !important;}.success{background-color:#4CAF50 !important;border-color:#4CAF50 !important;}.success--text{color:#4CAF50 !important;}.warning{background-color:#FFC107 !important;border-color:#FFC107 !important;}.warning--text{color:#FFC107 !important;}.application a{color: #1976D2;}</style></head><body><script src="lex-web-ui-loader.min.js"></script><script>// In the most simple form, you can load the component in a single statement:
+      //   new ChatBotUiLoader.FullPageLoader().load();
+
+      // The script below break the process into parts to further illustrate
+      // the load process.
+
+      // The ChatBotUiLoader variable contains the FullPageLoader field which is a
+      // constructor for the loader.
+      var Loader = ChatBotUiLoader.FullPageLoader;
+
+      // The loader constructor supports various configurable options used to
+      // control how the component configuration and dependencies are retrieved.
+      // In this case, we are just passing one option (which doesn't changethe
+      // default) for illustration purposes.
+      var loaderOpts = {
+        // The following option controls if the local config should be ignored
+        // when running this page embedded in an iframe.
+        // If set to true, only passes the parentOrigin field when run as an
+        // iframe and delegates the config to the parent
+        shouldIgnoreConfigWhenEmbedded: true,
+
+        // Controls if it should load minimized production dependecies
+        // defaults to true for production builds and false in development
+        shouldLoadMinDeps: true,
+      };
+
+      // Instantiate the loader by optionally passing the loader options to
+      // control its behavior. You may leave the options empty if you wish
+      // to take the defaults which works in most cases.
+      var loader = new Loader(loaderOpts);
+
+      // When loading the chatbot UI component, you can optionally pass it a
+      // configuration object
+      var chatbotUiConfig = {
+        lex: {
+          sessionAttributes: {
+            userAgent: navigator.userAgent
+          }
+        }
+      };
+
+      // Calling the load function of the loader does a few things:
+      //   1. Loads JavaScript and CSS dependencies to the DOM
+      //   2. Loads the chatbot UI configuration from various sources
+      //       (e.g. JSON file, event)
+      //   3. Instantiates the chatbot UI component in the DOM
+      loader
+        .load(chatbotUiConfig)
+        .then(function () { //console.log('ChatBotUiLoader loaded'); 
+        })
+        .catch(function (error) { console.error(error); });</script><script id="aws-script" type="text/javascript" src="aws-sdk-2.875.0.min.js"></script><script id="vue-script" type="text/javascript" src="index_data/vue.min.js"></script><script id="vuex-script" type="text/javascript" src="index_data/vuex.min.js"></script><script id="vuetify-script" type="text/javascript" src="index_data/vuetify.min.js"></script><script id="lexwebui-script" type="text/javascript" src="index_data/lex-web-ui.min.js"></script><div id="lex-web-ui" class="noprint"><div data-app="true" class="application theme--light" id="lex-web" ui-minimized="true"><div class="application--wrap"><div class="container min-button-container fluid"><button type="button" class="min-button min-button-content btn btn--bottom btn--fixed btn--depressed btn--right theme--dark red secondary-css-chatbot" data-ripple="true" aria-label="Do I qualify show chat window" style="transform-origin: center center 0px;"><div class="btn__content"><i class="fas fa-comments" style="padding-right: 8px"></i> Ask Robin </div></button></div><!----><!----><!----><!----><!----></div></div></div></body></html>
